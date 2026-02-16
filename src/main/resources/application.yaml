@@ -1,0 +1,87 @@
+spring:
+  application:
+    name: apirest
+
+  # Configuración de MongoDB
+  data:
+    mongodb:
+      uri: mongodb+srv://darios252553_db_user:s640L1pWzLmA2ssK@cluster0.y0zr3an.mongodb.net/?appName=Cluster0
+      #database: ${MONGO_DB:turismo_db}
+
+  # Configuración de Spring Security
+  #security:
+  #  user:
+  #    name: ${ADMIN_USER:admin}
+  #    password: ${ADMIN_PASS:adminpass}
+  #    roles: ADMIN
+
+# Configuración del servidor
+server:
+  port: 8080
+#  servlet:
+#    context-path: /
+#  error:
+#    include-message: always
+#    include-binding-errors: always
+#    include-stacktrace: on_param
+#    include-exception: false
+
+# Configuración de SpringDoc OpenAPI (Swagger)
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    # Ordenar operaciones alfabéticamente
+    operations-sorter: alpha
+    # Ordenar etiquetas alfabéticamente
+    tags-sorter: alpha
+    # Mostrar URL de petición
+    display-request-duration: true
+    # Configuración de UI
+    try-it-out-enabled: true
+    filter: false
+    # Configuración de OAuth (si lo necesitas)
+    # oauth2-redirect-url: /swagger-ui/oauth2-redirect.html
+  # Paquetes a escanear para la documentación
+  packages-to-scan: com.dgp.apirest
+  # Rutas a documentar
+  paths-to-match: /**
+
+  # Deshabilitar la validación de modelos de Swagger (opcional)
+  model-and-view-allowed: true
+
+# Configuración de Actuator
+#management:
+#  endpoints:
+#    web:
+#      exposure:
+#        include: health,info,metrics
+#      base-path: /actuator
+#  endpoint:
+#    health:
+#      show-details: when-authorized
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+      base-path: /actuator
+# Logging
+logging:
+  level:
+    root: INFO
+    com.dgp.apirest: DEBUG
+    # Habilitar logs de Spring Security para depuración (desactiva en producción)
+    org.springframework.security: DEBUG
+    # Logs de SpringDoc
+    org.springdoc: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/apirest.log
+    max-size: 10MB
+    max-history: 30
